@@ -49,6 +49,7 @@ const Home = ({ user, logout }) => {
     setConversations((prev) => prev.filter((convo) => convo.id));
   };
 
+  // Async functions always return a promise
   const saveMessage = async (body) => {
     const { data } = await axios.post("/api/messages", body);
     return data;
@@ -62,9 +63,9 @@ const Home = ({ user, logout }) => {
     });
   };
 
-  const postMessage = (body) => {
+  const postMessage = async (body) => {
     try {
-      const data = saveMessage(body);
+      const data = await saveMessage(body); // await the promise
 
       if (!body.conversationId) {
         addNewConvo(body.recipientId, data.message);
@@ -78,43 +79,44 @@ const Home = ({ user, logout }) => {
     }
   };
 
-  const addNewConvo = useCallback(
-    (recipientId, message) => {
-      conversations.forEach((convo) => {
+  const addNewConvo = useCallback((recipientId, message) => {
+    setConversations((prev) => {
+      const newState = [...prev];
+      newState.forEach((convo) => {
         if (convo.otherUser.id === recipientId) {
           convo.messages.push(message);
           convo.latestMessageText = message.text;
           convo.id = message.conversationId;
         }
       });
-      setConversations(conversations);
-    },
-    [setConversations, conversations],
-  );
-  const addMessageToConversation = useCallback(
-    (data) => {
-      // if sender isn't null, that means the message needs to be put in a brand new convo
-      const { message, sender = null } = data;
-      if (sender !== null) {
-        const newConvo = {
-          id: message.conversationId,
-          otherUser: sender,
-          messages: [message],
-        };
-        newConvo.latestMessageText = message.text;
-        setConversations((prev) => [newConvo, ...prev]);
-      }
+      return newState;
+    });
+  }, []);
 
-      conversations.forEach((convo) => {
+  const addMessageToConversation = useCallback((data) => {
+    // if sender isn't null, that means the message needs to be put in a brand new convo
+    const { message, sender = null } = data;
+    if (sender !== null) {
+      const newConvo = {
+        id: message.conversationId,
+        otherUser: sender,
+        messages: [message],
+      };
+      newConvo.latestMessageText = message.text;
+      setConversations((prev) => [newConvo, ...prev]);
+    }
+
+    setConversations((prev) => {
+      const newState = [...prev];
+      newState.forEach((convo) => {
         if (convo.id === message.conversationId) {
           convo.messages.push(message);
           convo.latestMessageText = message.text;
         }
       });
-      setConversations(conversations);
-    },
-    [setConversations, conversations],
-  );
+      return newState;
+    });
+  }, []);
 
   const setActiveChat = (username) => {
     setActiveConversation(username);
@@ -130,7 +132,7 @@ const Home = ({ user, logout }) => {
         } else {
           return convo;
         }
-      }),
+      })
     );
   }, []);
 
@@ -144,7 +146,7 @@ const Home = ({ user, logout }) => {
         } else {
           return convo;
         }
-      }),
+      })
     );
   }, []);
 
@@ -182,7 +184,14 @@ const Home = ({ user, logout }) => {
     const fetchConversations = async () => {
       try {
         const { data } = await axios.get("/api/conversations");
-        setConversations(data);
+
+        const reversedMessages = data.map((convo) => {
+          const messagesCopy = [...convo.messages];
+          messagesCopy.reverse();
+          return { ...convo, messages: messagesCopy };
+        });
+
+        setConversations(reversedMessages);
       } catch (error) {
         console.error(error);
       }
