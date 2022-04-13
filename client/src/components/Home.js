@@ -65,7 +65,7 @@ const Home = ({ user, logout }) => {
 
   const postMessage = async (body) => {
     try {
-      const data = await saveMessage(body); // await the promise
+      const data = await saveMessage(body);
 
       if (!body.conversationId) {
         addNewConvo(body.recipientId, data.message);
@@ -80,17 +80,18 @@ const Home = ({ user, logout }) => {
   };
 
   const addNewConvo = useCallback((recipientId, message) => {
-    setConversations((prev) => {
-      const newState = [...prev];
-      newState.forEach((convo) => {
+    setConversations((prev) =>
+      prev.map((convo) => {
         if (convo.otherUser.id === recipientId) {
-          convo.messages.push(message);
-          convo.latestMessageText = message.text;
-          convo.id = message.conversationId;
+          const convoCopy = { ...convo };
+          convoCopy.messages = [...convoCopy.messages, message];
+          convoCopy.latestMessageText = message.text;
+          return convoCopy;
+        } else {
+          return convo;
         }
-      });
-      return newState;
-    });
+      })
+    );
   }, []);
 
   const addMessageToConversation = useCallback((data) => {
@@ -106,16 +107,18 @@ const Home = ({ user, logout }) => {
       setConversations((prev) => [newConvo, ...prev]);
     }
 
-    setConversations((prev) => {
-      const newState = [...prev];
-      newState.forEach((convo) => {
+    setConversations((prev) =>
+      prev.map((convo) => {
         if (convo.id === message.conversationId) {
-          convo.messages.push(message);
-          convo.latestMessageText = message.text;
+          const convoCopy = { ...convo };
+          convoCopy.messages = [...convoCopy.messages, message];
+          convoCopy.latestMessageText = message.text;
+          return convoCopy;
+        } else {
+          return convo;
         }
-      });
-      return newState;
-    });
+      })
+    );
   }, []);
 
   const setActiveChat = (username) => {
