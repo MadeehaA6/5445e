@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from 'react-router-dom';
+import GuestLayout from './components/layout/GuestLayout';
 import {
-  Grid,
   Box,
   Typography,
   Button,
@@ -9,8 +10,15 @@ import {
   TextField,
 } from '@material-ui/core';
 
+const useStyles = makeStyles(() => ({
+  formControl: {
+    margin: '1.5rem 0',
+  },
+}));
+
 const Login = ({ user, login }) => {
   const history = useHistory();
+  const classes = useStyles();
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -27,27 +35,42 @@ const Login = ({ user, login }) => {
   }, [user, history]);
 
   return (
-    <Grid container justifyContent="center">
-      <Box>
-        <Grid container item>
-          <Typography>Need to register?</Typography>
-          <Link href="/register" to="/register">
-            <Button>Register</Button>
-          </Link>
-        </Grid>
-        <form onSubmit={handleLogin}>
-          <Grid>
-            <Grid>
-              <FormControl margin="normal" required>
-                <TextField
-                  aria-label="username"
-                  label="Username"
-                  name="username"
-                  type="text"
-                />
-              </FormControl>
-            </Grid>
-            <FormControl margin="normal" required>
+    <GuestLayout
+      top={
+        <>
+          <Typography color="textSecondary">Don’t have an account?</Typography>
+          <Button
+            color="secondary"
+            type="submit"
+            variant="contained"
+            size="large"
+            onClick={() => {
+              history.push('/register');
+            }}
+          >
+            Create an account
+          </Button>
+        </>
+      }
+      bottom={
+        <>
+          <Typography variant="h1">
+            <Box component="span" fontWeight="bold">
+              Welcome back!
+            </Box>
+          </Typography>
+
+          <form onSubmit={handleLogin}>
+            <FormControl required fullWidth className={classes.formControl}>
+              <TextField
+                aria-label="username"
+                label="Username"
+                name="username"
+                type="text"
+              />
+            </FormControl>
+
+            <FormControl required fullWidth className={classes.formControl}>
               <TextField
                 label="password"
                 aria-label="password"
@@ -55,15 +78,20 @@ const Login = ({ user, login }) => {
                 name="password"
               />
             </FormControl>
-            <Grid>
-              <Button type="submit" variant="contained" size="large">
-                Login
+            <Box align="center" sx={{ m: 2 }}>
+              <Button
+                color="primary"
+                type="submit"
+                variant="contained"
+                size="large"
+              >
+                <Box sx={{ px: 2 }}> Login</Box>
               </Button>
-            </Grid>
-          </Grid>
-        </form>
-      </Box>
-    </Grid>
+            </Box>
+          </form>
+        </>
+      }
+    />
   );
 };
 
