@@ -116,7 +116,6 @@ const Signup = ({ user, register }) => {
             >
               <TextField
                 fullWidth
-                className={classes.formControl}
                 label="Confirm Password"
                 aria-label="confirm password"
                 type="password"
