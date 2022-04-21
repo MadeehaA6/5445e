@@ -2,13 +2,8 @@ import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import GuestLayout from './components/layout/GuestLayout';
-import {
-  Box,
-  Typography,
-  Button,
-  FormControl,
-  TextField,
-} from '@material-ui/core';
+import { Box, Typography, FormControl, TextField } from '@material-ui/core';
+import MessengerButton from './components/UI/MessengerButton';
 
 const useStyles = makeStyles(() => ({
   formControl: {
@@ -39,17 +34,14 @@ const Login = ({ user, login }) => {
       top={
         <>
           <Typography color="textSecondary">Don’t have an account?</Typography>
-          <Button
+          <MessengerButton
             color="secondary"
-            type="submit"
-            variant="contained"
-            size="large"
             onClick={() => {
               history.push('/register');
             }}
           >
             Create an account
-          </Button>
+          </MessengerButton>
         </>
       }
       bottom={
@@ -79,14 +71,7 @@ const Login = ({ user, login }) => {
               />
             </FormControl>
             <Box align="center" sx={{ m: 2 }}>
-              <Button
-                color="primary"
-                type="submit"
-                variant="contained"
-                size="large"
-              >
-                <Box sx={{ px: 2 }}> Login</Box>
-              </Button>
+              <MessengerButton color="primary">Login</MessengerButton>
             </Box>
           </form>
         </>

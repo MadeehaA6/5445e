@@ -42,10 +42,5 @@ export const theme = createTheme({
       main: '#ffffff',
       contrastText: '#3A8DFF',
     },
-
-    // error.main
-    // warning.main
-    // info.main
-    // success.main
   },
 });

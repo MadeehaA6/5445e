@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-
+import MessengerButton from './components/UI/MessengerButton';
 import {
   Box,
   Typography,
@@ -50,17 +50,14 @@ const Signup = ({ user, register }) => {
           <Typography color="textSecondary">
             Already have an account?
           </Typography>
-          <Button
+          <MessengerButton
             color="secondary"
-            type="submit"
-            variant="contained"
-            size="large"
             onClick={() => {
               history.push('/login');
             }}
           >
             Login
-          </Button>
+          </MessengerButton>
         </>
       }
       bottom={
@@ -129,14 +126,7 @@ const Signup = ({ user, register }) => {
             </FormControl>
 
             <Box align="center" sx={{ m: 2 }}>
-              <Button
-                color="primary"
-                type="submit"
-                variant="contained"
-                size="large"
-              >
-                <Box sx={{ px: 2 }}> Create</Box>
-              </Button>
+              <MessengerButton color="primary">Create</MessengerButton>
             </Box>
           </form>
         </>
