@@ -8,7 +8,6 @@ const MessengerButton = (props) => {
         color={props.color}
         type="submit"
         variant="contained"
-        size="large"
         onClick={props.onClick}
       >
         <Box px={2}>{props.children}</Box>

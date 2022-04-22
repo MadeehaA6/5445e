@@ -1,19 +1,11 @@
 import React, { useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import GuestLayout from './components/layout/GuestLayout';
 import { Box, Typography, FormControl, TextField } from '@material-ui/core';
 import MessengerButton from './components/UI/MessengerButton';
 
-const useStyles = makeStyles(() => ({
-  formControl: {
-    margin: '1.5rem 0',
-  },
-}));
-
 const Login = ({ user, login }) => {
   const history = useHistory();
-  const classes = useStyles();
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -47,13 +39,11 @@ const Login = ({ user, login }) => {
       bottom={
         <>
           <Typography variant="h1">
-            <Box component="span" fontWeight="bold">
-              Welcome back!
-            </Box>
+            <Box fontWeight="bold">Welcome back!</Box>
           </Typography>
 
           <form onSubmit={handleLogin}>
-            <FormControl required fullWidth className={classes.formControl}>
+            <FormControl required fullWidth>
               <TextField
                 aria-label="username"
                 label="Username"
@@ -62,7 +52,7 @@ const Login = ({ user, login }) => {
               />
             </FormControl>
 
-            <FormControl required fullWidth className={classes.formControl}>
+            <FormControl required fullWidth>
               <TextField
                 label="password"
                 aria-label="password"
@@ -70,7 +60,7 @@ const Login = ({ user, login }) => {
                 name="password"
               />
             </FormControl>
-            <Box align="center" sx={{ m: 2 }}>
+            <Box align="center" m={2}>
               <MessengerButton color="primary">Login</MessengerButton>
             </Box>
           </form>

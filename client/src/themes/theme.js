@@ -1,23 +1,29 @@
 import { createTheme } from '@material-ui/core';
+import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
+const breakpoints = createBreakpoints({});
 
 export const theme = createTheme({
   typography: {
     fontFamily: 'Open Sans, sans-serif',
     fontSize: 14,
+    fontWeightRegular: 400,
     button: {
       textTransform: 'none',
       letterSpacing: 0,
       fontWeight: 'bold',
     },
     h1: {
-      fontSize: '1.25em',
+      fontSize: '1.2rem',
       lineHeight: '1.5',
-      '@media (min-width:600px)': {
-        fontSize: '1.45em',
+      [breakpoints.up('md')]: {
+        fontSize: '1.625rem',
       },
-      '@media (min-width:960px)': {
-        fontSize: '1.625em',
+      [breakpoints.up('lg')]: {
+        fontSize: '2.25rem',
       },
+    },
+    body1: {
+      fontSize: '14px',
     },
   },
 

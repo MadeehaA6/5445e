@@ -10,8 +10,8 @@ const useStyles = makeStyles(() => ({
     minHeight: '100vh',
   },
   bgImg: {
-    opacity: '0.85',
-    backgroundImage: `linear-gradient(to top, rgba(58, 141, 255, 0.52 ) , rgba(134, 185, 255, 0.73 )), url(${bgImg})`,
+    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+    backgroundImage: `linear-gradient(to top, rgba(58, 141, 255, 1) , rgba(134, 185, 255, .8)), url(${bgImg})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'top center',
@@ -21,7 +21,11 @@ const useStyles = makeStyles(() => ({
   },
   formWrapper: {
     margin: 'auto 0',
-    width: '50%',
+    width: '70%',
+
+    '& > form > *': {
+      margin: '1.5rem 0',
+    },
   },
 }));
 
@@ -33,7 +37,7 @@ const GuestLayout = (props) => {
       <Grid
         item
         xs={12}
-        sm={6}
+        sm={5}
         className={classes.bgImg}
         container
         direction="column"
@@ -51,9 +55,9 @@ const GuestLayout = (props) => {
         </Box>
       </Grid>
 
-      <Grid item xs={12} sm={6} container direction="column">
+      <Grid item xs={12} sm={7} container direction="column">
         <Box
-          sx={{ p: 2 }}
+          p={2}
           display="flex"
           gridGap={30}
           alignItems="center"

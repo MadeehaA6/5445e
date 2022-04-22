@@ -1,25 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 import MessengerButton from './components/UI/MessengerButton';
 import {
   Box,
   Typography,
-  Button,
   FormControl,
   TextField,
   FormHelperText,
 } from '@material-ui/core';
 import GuestLayout from './components/layout/GuestLayout';
 
-const useStyles = makeStyles(() => ({
-  formControl: {
-    margin: '1.5rem 0',
-  },
-}));
 const Signup = ({ user, register }) => {
   const history = useHistory();
-  const classes = useStyles();
 
   const [formErrorMessage, setFormErrorMessage] = useState({});
 
@@ -63,12 +55,11 @@ const Signup = ({ user, register }) => {
       bottom={
         <>
           <Typography variant="h1">
-            <Box component="span" fontWeight="bold">
-              Create an account.
-            </Box>
+            <Box fontWeight="bold">Create an account.</Box>
           </Typography>
+
           <form onSubmit={handleRegister}>
-            <FormControl fullWidth className={classes.formControl}>
+            <FormControl fullWidth>
               <TextField
                 aria-label="username"
                 label="Username"
@@ -78,7 +69,7 @@ const Signup = ({ user, register }) => {
               />
             </FormControl>
 
-            <FormControl fullWidth className={classes.formControl}>
+            <FormControl fullWidth>
               <TextField
                 label="E-mail address"
                 aria-label="e-mail address"
@@ -88,11 +79,7 @@ const Signup = ({ user, register }) => {
               />
             </FormControl>
 
-            <FormControl
-              error={!!formErrorMessage.confirmPassword}
-              fullWidth
-              className={classes.formControl}
-            >
+            <FormControl error={!!formErrorMessage.confirmPassword} fullWidth>
               <TextField
                 aria-label="password"
                 label="Password"
@@ -106,11 +93,7 @@ const Signup = ({ user, register }) => {
               </FormHelperText>
             </FormControl>
 
-            <FormControl
-              error={!!formErrorMessage.confirmPassword}
-              fullWidth
-              className={classes.formControl}
-            >
+            <FormControl error={!!formErrorMessage.confirmPassword} fullWidth>
               <TextField
                 fullWidth
                 label="Confirm Password"
@@ -125,7 +108,7 @@ const Signup = ({ user, register }) => {
               </FormHelperText>
             </FormControl>
 
-            <Box align="center" sx={{ m: 2 }}>
+            <Box align="center" m={2}>
               <MessengerButton color="primary">Create</MessengerButton>
             </Box>
           </form>
