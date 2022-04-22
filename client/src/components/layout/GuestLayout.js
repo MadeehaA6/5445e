@@ -24,7 +24,7 @@ const useStyles = makeStyles(() => ({
     width: '70%',
 
     '& > form > *': {
-      margin: '1.5rem 0',
+      marginTop: '2.375rem',
     },
   },
 }));
