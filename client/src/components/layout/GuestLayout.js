@@ -19,14 +19,6 @@ const useStyles = makeStyles(() => ({
   wrapper: {
     margin: 'auto 0',
   },
-  formWrapper: {
-    margin: 'auto 0',
-    width: '70%',
-
-    '& > form > *': {
-      marginTop: '2.375rem',
-    },
-  },
 }));
 
 const GuestLayout = (props) => {
@@ -56,18 +48,7 @@ const GuestLayout = (props) => {
       </Grid>
 
       <Grid item xs={12} sm={7} container direction="column">
-        <Box
-          p={2}
-          display="flex"
-          gridGap={30}
-          alignItems="center"
-          alignSelf="end"
-        >
-          {props.top}
-        </Box>
-        <Box className={classes.formWrapper} alignSelf="center">
-          {props.bottom}
-        </Box>
+        {props.children}
       </Grid>
     </Grid>
   );

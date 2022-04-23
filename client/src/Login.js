@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import GuestLayout from './components/layout/GuestLayout';
 import { Box, Typography, FormControl, TextField } from '@material-ui/core';
 import MessengerButton from './components/UI/MessengerButton';
+import MessengerForm from './components/UI/MessengerForm';
 
 const Login = ({ user, login }) => {
   const history = useHistory();
@@ -22,51 +23,50 @@ const Login = ({ user, login }) => {
   }, [user, history]);
 
   return (
-    <GuestLayout
-      top={
-        <>
-          <Typography color="textSecondary">Don’t have an account?</Typography>
-          <MessengerButton
-            color="secondary"
-            onClick={() => {
-              history.push('/register');
-            }}
-          >
-            Create an account
-          </MessengerButton>
-        </>
-      }
-      bottom={
-        <>
-          <Typography variant="h1">
-            <Box fontWeight="bold">Welcome back!</Box>
-          </Typography>
+    <GuestLayout>
+      <Box
+        p={2}
+        display="flex"
+        gridGap={30}
+        alignItems="center"
+        alignSelf="end"
+      >
+        <Typography color="textSecondary">Don’t have an account?</Typography>
+        <MessengerButton
+          color="secondary"
+          onClick={() => {
+            history.push('/register');
+          }}
+        >
+          Create an account
+        </MessengerButton>
+      </Box>
 
-          <form onSubmit={handleLogin}>
-            <FormControl required fullWidth>
-              <TextField
-                aria-label="username"
-                label="Username"
-                name="username"
-                type="text"
-              />
-            </FormControl>
+      <MessengerForm formTitle="Welcome back!">
+        <form onSubmit={handleLogin}>
+          <FormControl required fullWidth>
+            <TextField
+              aria-label="username"
+              label="Username"
+              name="username"
+              type="text"
+            />
+          </FormControl>
 
-            <FormControl required fullWidth>
-              <TextField
-                label="password"
-                aria-label="password"
-                type="password"
-                name="password"
-              />
-            </FormControl>
-            <Box align="center" m={2}>
-              <MessengerButton color="primary">Login</MessengerButton>
-            </Box>
-          </form>
-        </>
-      }
-    />
+          <FormControl required fullWidth>
+            <TextField
+              label="password"
+              aria-label="password"
+              type="password"
+              name="password"
+            />
+          </FormControl>
+          <Box align="center" m={2}>
+            <MessengerButton color="primary">Login</MessengerButton>
+          </Box>
+        </form>
+      </MessengerForm>
+    </GuestLayout>
   );
 };
 
