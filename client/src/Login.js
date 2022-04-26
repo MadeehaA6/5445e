@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import GuestLayout from './components/layout/GuestLayout';
-import { Box, Typography, FormControl, TextField } from '@material-ui/core';
-import MessengerButton from './components/UI/MessengerButton';
-import MessengerForm from './components/UI/MessengerForm';
+import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import AuthLayout from "./components/Auth/AuthLayout";
+import AuthHeader from "./components/Auth/AuthHeader";
+import AuthForm from "./components/Auth/AuthForm";
 
 const Login = ({ user, login }) => {
   const history = useHistory();
@@ -19,54 +18,27 @@ const Login = ({ user, login }) => {
   };
 
   useEffect(() => {
-    if (user && user.id) history.push('/home');
+    if (user && user.id) history.push("/home");
   }, [user, history]);
 
   return (
-    <GuestLayout>
-      <Box
-        p={2}
-        display="flex"
-        gridGap={30}
-        alignItems="center"
-        alignSelf="end"
+    <AuthLayout>
+      <AuthHeader
+        color="secondary"
+        buttonLabel="Don’t have an account?"
+        onClick={() => {
+          history.push("/register");
+        }}
       >
-        <Typography color="textSecondary">Don’t have an account?</Typography>
-        <MessengerButton
-          color="secondary"
-          onClick={() => {
-            history.push('/register');
-          }}
-        >
-          Create an account
-        </MessengerButton>
-      </Box>
+        Create an account
+      </AuthHeader>
 
-      <MessengerForm formTitle="Welcome back!">
-        <form onSubmit={handleLogin}>
-          <FormControl required fullWidth>
-            <TextField
-              aria-label="username"
-              label="Username"
-              name="username"
-              type="text"
-            />
-          </FormControl>
-
-          <FormControl required fullWidth>
-            <TextField
-              label="password"
-              aria-label="password"
-              type="password"
-              name="password"
-            />
-          </FormControl>
-          <Box align="center" m={2}>
-            <MessengerButton color="primary">Login</MessengerButton>
-          </Box>
-        </form>
-      </MessengerForm>
-    </GuestLayout>
+      <AuthForm
+        formTitle="Welcome back!"
+        onSubmit={handleLogin}
+        onSubmitTitle="Login"
+      />
+    </AuthLayout>
   );
 };
 
