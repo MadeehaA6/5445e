@@ -24,8 +24,8 @@ const Login = ({ user, login }) => {
   return (
     <AuthLayout>
       <AuthHeader
-        color="secondary"
-        buttonLabel="Don’t have an account?"
+        color='secondary'
+        buttonLabel='Don’t have an account?'
         onClick={() => {
           history.push("/register");
         }}
@@ -34,9 +34,9 @@ const Login = ({ user, login }) => {
       </AuthHeader>
 
       <AuthForm
-        formTitle="Welcome back!"
+        formTitle='Welcome back!'
         onSubmit={handleLogin}
-        onSubmitTitle="Login"
+        onSubmitTitle='Login'
       />
     </AuthLayout>
   );

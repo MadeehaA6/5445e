@@ -33,8 +33,8 @@ const Signup = ({ user, register }) => {
   return (
     <AuthLayout>
       <AuthHeader
-        color="secondary"
-        buttonLabel="Already have an account?"
+        color='secondary'
+        buttonLabel='Already have an account?'
         onClick={() => {
           history.push("/login");
         }}
@@ -43,18 +43,18 @@ const Signup = ({ user, register }) => {
       </AuthHeader>
 
       <AuthForm
-        formTitle="Create an account."
+        formTitle='Create an account.'
         onSubmit={handleRegister}
-        onSubmitTitle="Create"
+        onSubmitTitle='Create'
       >
         <FormControl error={!!formErrorMessage.confirmPassword} fullWidth>
           <TextField
             fullWidth
-            label="Confirm Password"
-            aria-label="confirm password"
-            type="password"
+            label='Confirm Password'
+            aria-label='confirm password'
+            type='password'
             inputProps={{ minLength: 6 }}
-            name="confirmPassword"
+            name='confirmPassword'
             required
           />
           <FormHelperText>{formErrorMessage.confirmPassword}</FormHelperText>
@@ -62,10 +62,10 @@ const Signup = ({ user, register }) => {
 
         <FormControl required fullWidth>
           <TextField
-            label="E-mail address"
-            aria-label="e-mail address"
-            type="email"
-            name="email"
+            label='E-mail address'
+            aria-label='e-mail address'
+            type='email'
+            name='email'
           />
         </FormControl>
       </AuthForm>

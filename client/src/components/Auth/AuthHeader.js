@@ -1,14 +1,14 @@
 import React from "react";
 import { Button, Box, Typography } from "@material-ui/core";
 
-const MessengerButton = (props) => {
+const AuthHeader = (props) => {
   return (
-    <Box p={2} display="flex" gridGap={30} alignItems="center" alignSelf="end">
-      <Typography color="textSecondary">{props.buttonLabel}</Typography>
+    <Box p={2} display='flex' gridGap={30} alignItems='center' alignSelf='end'>
+      <Typography color='textSecondary'>{props.buttonLabel}</Typography>
       <Button
-        color="secondary"
-        type="submit"
-        variant="contained"
+        color='secondary'
+        type='submit'
+        variant='contained'
         onClick={props.onClick}
       >
         <Box p={1}>{props.children}</Box>
@@ -17,4 +17,4 @@ const MessengerButton = (props) => {
   );
 };
 
-export default MessengerButton;
+export default AuthHeader;
