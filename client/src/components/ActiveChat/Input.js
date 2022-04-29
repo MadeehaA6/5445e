@@ -51,7 +51,7 @@ const Input = ({ otherUser, conversationId, user, postMessage }) => {
     formData.append('cloud_name', process.env.REACT_APP_CLOUD_NAME);
 
     return instance.post(
-      'https://api.cloudinary.com/v1_1/madeehaa6/image/upload',
+      `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`,
       formData
     );
   };
