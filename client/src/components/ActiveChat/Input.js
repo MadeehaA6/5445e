@@ -44,8 +44,11 @@ const Input = ({ otherUser, conversationId, user, postMessage }) => {
   const uploadImages = (image) => {
     const formData = new FormData();
     formData.append('file', image);
-    formData.append('upload_preset', 'axtfiqld');
-    formData.append('cloud_name', 'madeehaa6');
+    formData.append(
+      'upload_preset',
+      process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET
+    );
+    formData.append('cloud_name', process.env.REACT_APP_CLOUD_NAME);
 
     return instance.post(
       'https://api.cloudinary.com/v1_1/madeehaa6/image/upload',
