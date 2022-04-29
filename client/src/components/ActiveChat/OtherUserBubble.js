@@ -22,6 +22,11 @@ const useStyles = makeStyles(() => ({
     backgroundImage: 'linear-gradient(225deg, #6CC1FF 0%, #3A8DFF 100%)',
     borderRadius: '0 10px 10px 10px',
   },
+  attachments: {
+    aspectRatio: 1,
+    objectFit: 'cover ',
+    maxWidth: '200px',
+  },
   text: {
     fontSize: 14,
     fontWeight: 'bold',
@@ -31,7 +36,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const OtherUserBubble = ({ text, time, otherUser }) => {
+const OtherUserBubble = ({ text, time, attachments, otherUser }) => {
   const classes = useStyles();
 
   return (
@@ -45,7 +50,18 @@ const OtherUserBubble = ({ text, time, otherUser }) => {
         <Typography className={classes.usernameDate}>
           {otherUser.username} {time}
         </Typography>
+
         <Box className={classes.bubble}>
+          {attachments?.map((attachment) => {
+            return (
+              <img
+                key={attachment}
+                className={classes.attachments}
+                src={attachment}
+                alt={attachment}
+              />
+            );
+          })}
           <Typography className={classes.text}>{text}</Typography>
         </Box>
       </Box>
