@@ -36,6 +36,7 @@ function ImageDialog(props) {
     props.handleClickToggle(); // close the dialog
     props.onSubmit(selectedImages); // send the images to the parent
     setSelectedImages([]); // clear the selected images
+    setPreviewURLs([]); // clear the preview URLs
   };
 
   return (
