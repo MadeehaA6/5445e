@@ -64,17 +64,15 @@ const Input = ({ otherUser, conversationId, user, postMessage }) => {
 
     const promises = selectedImages.map((image) => uploadImages(image)); // returns an array of promises
 
-    const uploadedImages = await Promise.all(promises) // returns an array with the promise resolved
-      .then((res) => {
-        return res.map((res) => res.data.secure_url); // from the array of resolved promises return the secure url
-      });
+    const uploadedImages = await Promise.all(promises); // returns an array with the promise resolved
+    const attachments = uploadedImages.map((res) => res.data.secure_url); // from the array of resolved promises return the secure url
 
     const reqBody = {
       text: formElements.text.value,
       recipientId: otherUser.id,
       conversationId,
       sender: conversationId ? null : user,
-      attachments: uploadedImages,
+      attachments,
     };
 
     await postMessage(reqBody);
