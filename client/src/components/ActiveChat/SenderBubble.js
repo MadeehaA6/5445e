@@ -21,13 +21,18 @@ const useStyles = makeStyles(() => ({
     padding: 8,
     fontWeight: 'bold',
   },
+  attachments: {
+    aspectRatio: 1,
+    objectFit: 'cover ',
+    maxWidth: '200px',
+  },
   bubble: {
     background: '#F4F6FA',
     borderRadius: '10px 10px 0 10px',
   },
 }));
 
-const SenderBubble = ({ time, text }) => {
+const SenderBubble = ({ time, attachments, text }) => {
   const classes = useStyles();
 
   return (
@@ -35,6 +40,16 @@ const SenderBubble = ({ time, text }) => {
       <Typography className={classes.date}>{time}</Typography>
       <Box className={classes.bubble}>
         <Typography className={classes.text}>{text}</Typography>
+        {attachments?.map((attachment) => {
+          return (
+            <img
+              className={classes.attachments}
+              key={attachment}
+              src={attachment}
+              alt={attachment}
+            />
+          );
+        })}
       </Box>
     </Box>
   );

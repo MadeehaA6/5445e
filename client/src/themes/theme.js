@@ -48,5 +48,8 @@ export const theme = createTheme({
       main: "#ffffff",
       contrastText: "#3A8DFF",
     },
+    background: {
+      main: "#F4F6FA",
+    },
   },
 });
