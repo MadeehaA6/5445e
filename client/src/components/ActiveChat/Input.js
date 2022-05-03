@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { FormControl, IconButton, FilledInput } from '@material-ui/core';
+import { FormControl, Button, FilledInput } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import AddAPhotoIcon from '../../assets/AddAPhotoIcon.png';
+import ContentCopy from '../../assets/ContentCopy.svg';
 import ImageDialog from './ImageDialog';
 import axios from 'axios';
+const instance = axios.create();
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -11,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     display: 'flex',
   },
-  input: {
+  formField: {
     flex: 1,
     backgroundColor: theme.palette.background.main,
     borderRadius: 8,
@@ -23,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Input = ({ otherUser, conversationId, user, postMessage }) => {
   const classes = useStyles();
-  const instance = axios.create();
 
   const [text, setText] = useState('');
   const [selectedImages, setSelectedImages] = useState([]);
@@ -62,18 +62,19 @@ const Input = ({ otherUser, conversationId, user, postMessage }) => {
     const formElements = form.elements;
     // add sender user info if posting to a brand new convo, so that the other user will have access to username, profile pic, etc.
 
-    const attachmentsPromiseArray = selectedImages.map(async (image) => {
-      const response = await uploadImages(image);
-      return response.data.secure_url;
-    });
-    const attachments = await Promise.all(attachmentsPromiseArray);
+    const promises = selectedImages.map((image) => uploadImages(image)); // returns an array of promises
+
+    const uploadedImages = await Promise.all(promises) // returns an array with the promise resolved
+      .then((res) => {
+        return res.map((res) => res.data.secure_url); // from the array of resolved promises return the secure url
+      });
 
     const reqBody = {
       text: formElements.text.value,
       recipientId: otherUser.id,
       conversationId,
       sender: conversationId ? null : user,
-      attachments: attachments,
+      attachments: uploadedImages,
     };
 
     await postMessage(reqBody);
@@ -92,7 +93,7 @@ const Input = ({ otherUser, conversationId, user, postMessage }) => {
       <form className={classes.root} onSubmit={handleSubmit}>
         <FormControl fullWidth hiddenLabel>
           <FilledInput
-            className={classes.input}
+            className={classes.formField}
             disableUnderline
             placeholder='Type something and add an image...'
             type='text'
@@ -102,17 +103,14 @@ const Input = ({ otherUser, conversationId, user, postMessage }) => {
           />
         </FormControl>
 
-        <IconButton
-          p={2}
+        <Button
           className={
-            selectedImages && selectedImages.length > 0
-              ? classes.photoAdded
-              : null
+            selectedImages.length > 0 ? classes.photoAdded : classes.formField
           }
           onClick={handleDialogToggle}
         >
-          <img width='32px' height='32px' src={AddAPhotoIcon} alt='addPhoto' />
-        </IconButton>
+          <img width='25px' height='25px' src={ContentCopy} alt='addPhoto' />
+        </Button>
       </form>
     </>
   );

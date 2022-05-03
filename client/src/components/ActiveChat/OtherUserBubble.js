@@ -52,6 +52,7 @@ const OtherUserBubble = ({ text, time, attachments, otherUser }) => {
         </Typography>
 
         <Box className={classes.bubble}>
+          <Typography className={classes.text}>{text}</Typography>
           {attachments?.map((attachment) => {
             return (
               <img
@@ -62,7 +63,6 @@ const OtherUserBubble = ({ text, time, attachments, otherUser }) => {
               />
             );
           })}
-          <Typography className={classes.text}>{text}</Typography>
         </Box>
       </Box>
     </Box>
